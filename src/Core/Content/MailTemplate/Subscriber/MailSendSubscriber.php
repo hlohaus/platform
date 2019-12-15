@@ -106,7 +106,8 @@ class MailSendSubscriber implements EventSubscriberInterface
         $this->mailService->send(
             $data->all(),
             $event->getContext(),
-            $this->getTemplateData($mailEvent)
+            $this->getTemplateData($mailEvent),
+            $mailTemplate->getCustomFields()
         );
     }
 

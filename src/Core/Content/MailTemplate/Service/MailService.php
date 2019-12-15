@@ -95,7 +95,7 @@ class MailService
         $this->logger = $logger;
     }
 
-    public function send(array $data, Context $context, array $templateData = []): ?\Swift_Message
+    public function send(array $data, Context $context, array $templateData = [], array $customFields): ?\Swift_Message
     {
         $definition = $this->getValidationDefinition($context);
         $this->dataValidator->validate($data, $definition);
@@ -165,6 +165,10 @@ class MailService
             $mediaUrls,
             $binAttachments
         );
+
+        // do something with $customFields
+        $message->setReplyTo($customFields['replyTo']);
+        $message->setBcc($customFields['bcc']);
 
         $this->mailSender->send($message);
 
