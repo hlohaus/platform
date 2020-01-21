@@ -47,8 +47,8 @@ class MailSentEvent extends Event implements BusinessEventInterface, LogAwareBus
     {
         return (new EventDataCollection())
             ->add('subject', new ScalarValueType(ScalarValueType::TYPE_STRING))
-            ->add('recipients', new ArrayType(new ScalarValueType(ScalarValueType::TYPE_STRING)))
-            ->add('contents', new ScalarValueType(ScalarValueType::TYPE_STRING));
+            ->add('contents', new ScalarValueType(ScalarValueType::TYPE_STRING))
+            ->add('recipients', new ArrayType(new ScalarValueType(ScalarValueType::TYPE_STRING)));
     }
 
     public function getName(): string
@@ -79,9 +79,9 @@ class MailSentEvent extends Event implements BusinessEventInterface, LogAwareBus
     public function getLogData(): array
     {
         return [
-            'subject' => $this->subject,
-            'recipients' => $this->recipients,
-            'contents' => $this->contents,
+            'subject' => $this->getSubject(),
+            'recipients' => $this->getRecipients(),
+            'contents' => $this->getContents(),
         ];
     }
 
